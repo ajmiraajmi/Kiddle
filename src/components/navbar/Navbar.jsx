@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Container from "../../shared/Container";
+import { AuthContext } from "@/context/AuthContext";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, logout } = useContext(AuthContext);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -44,20 +46,28 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Login/Register Buttons */}
           <div className="hidden md:flex space-x-8 text-xl">
-            <Link
-              to="/login"
-              className="bg-white text-black px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300"
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              className="bg-white text-black px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300"
-            >
-              Register
-            </Link>
+          {user?.email ? (
+            <>
+              <p>{user?.email}</p>
+              <button onClick={logout}>LogOut</button>
+            </>
+          ) : (
+            <div className="flex space-x-4">
+              <Link
+                to="/login"
+                className="text-black rounded-full bg-white px-4 py-2"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="text-black rounded-full bg-white px-4 py-2"
+              >
+                Register
+              </Link>
+            </div>
+          )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -104,20 +114,29 @@ const Navbar = () => {
             </Link>
 
             {/* Mobile Login/Register */}
-            <div className="flex space-x-4 mt-4">
+            <div className="hidden md:flex space-x-8 text-xl">
+            {user?.email ? (
+            <>
+              <p>{user?.email}</p>
+              <button onClick={logout}>LogOut</button>
+            </>
+          ) : (
+            <div className="flex space-x-4">
               <Link
                 to="/login"
-                className="bg-white text-black px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300"
+                className="text-black rounded-full bg-white px-4 py-2"
               >
                 Login
               </Link>
               <Link
                 to="/register"
-                className="bg-white text-black px-4 py-2 rounded-full hover:bg-gray-300 transition duration-300"
+                className="text-black rounded-full bg-white px-4 py-2"
               >
                 Register
               </Link>
             </div>
+          )}
+          </div>
           </div>
         )}
       </Container>

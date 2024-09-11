@@ -15,15 +15,15 @@ const Bannar = () => {
           <div className="relative">
             <img
               className="w-full h-[40rem] md:h-[40rem] object-cover"
-              src={B3}
+              src={B1}
               alt="Jewelry Collection"
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center p-4">
-                <h3 className="text-4xl md:text-5xl font-bold text-white">
+                <h3 className="text-4xl md:text-5xl font-bold text-black">
                   Elegant Toys
                 </h3>
-                <p className="text-xl md:text-lg text-white">
+                <p className="text-xl md:text-xl text-black">
                   Discover our exquisite collection of fine Toys.
                 </p>
                 <button className="bg-amber-950 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
@@ -61,7 +61,7 @@ const Bannar = () => {
           <div className="relative">
             <img
               className="w-full h-[30rem] md:h-[36rem] object-cover"
-              src={B1}
+              src={B3}
               alt="Luxury Skincare"
             />
             <div className="absolute inset-0 flex items-center justify-center">
