@@ -5,6 +5,7 @@ import ShopByCategory from './pages/ShopByCategory'
 import WhyUs from './pages/WhyUs'
 import OurClients from './pages/OurClients'
 
+
 const Home = () => {
   return (
     <div>
@@ -13,6 +14,7 @@ const Home = () => {
       <ShopByCategory />
       <WhyUs />
       <OurClients />
+   
     </div>
   )
 }
