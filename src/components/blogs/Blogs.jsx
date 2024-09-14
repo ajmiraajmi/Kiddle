@@ -3,7 +3,7 @@ import React from 'react'
 const Blogs = () => {
   return (
    
-      <div className="container mx-auto p-12 max-w-7xl bg-gray-200 mt-8 mb-12">
+      <div className="container mx-auto p-12 max-w-7xl bg-gray-100 mt-8 mb-12">
       <div className="text-center mb-12">
         <h1 className="text-3xl font-bold text-orange-800">BlogPage</h1>
       </div>
