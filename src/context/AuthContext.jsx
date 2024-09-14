@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useContext } from "react";
 import {createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth';
 import app from "../../firebase.config";
 
@@ -53,5 +53,6 @@ const logout=()=>{
         </AuthContext.Provider>
     )
 }
+export const useAuth = () => useContext(AuthContext);
 
 export default AuthProvider

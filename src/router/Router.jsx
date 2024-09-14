@@ -1,9 +1,12 @@
 import AddToy from "@/components/addtoy/AddToy";
 import AllToys from "@/components/alltoys/AllToys";
+import ToyDetails from "@/components/alltoys/ToyDetails";
+import Blogs from "@/components/blogs/Blogs";
 import Home from "@/components/home/Home";
-
 import Login from "@/components/login/Login";
+import MyToy from "@/components/mytoy/MyToy";
 import Register from "@/components/register/Register";
+import PrivateRoute from "@/privateroute/PrivateRoute";
 import RootLayout from "@/root/RootLayout";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -18,9 +21,22 @@ const Router = createBrowserRouter([
             },
             {
                 path: "/add-a-toy",
-                element: <AddToy />,
+                element: <PrivateRoute element={<AddToy />}/>,
+            },   
+            {
+                path: "/toy/:id",
+                element: <PrivateRoute element={<ToyDetails />}/>,
+                loader:({params})=>fetch(`http://localhost:5000/toy/${params.id}`)
+            },   
+
+            {
+                path: "/blogs",
+                element: <Blogs />,
             },
-            
+            {
+                path: "/my-toys",
+                element: <MyToy />,
+            },
             
             {
                 path: "/all-toys",
