@@ -3,6 +3,7 @@ import Bannar from './pages/Bannar'
 import Gallery from './pages/Gallery'
 import ShopByCategory from './pages/ShopByCategory'
 import WhyUs from './pages/WhyUs'
+import OurClients from './pages/OurClients'
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <Gallery />
       <ShopByCategory />
       <WhyUs />
+      <OurClients />
     </div>
   )
 }
