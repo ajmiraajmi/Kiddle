@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const MyToy =  () => {
   const [toys, setToys] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch toys data from your backend
@@ -21,10 +20,7 @@ const MyToy =  () => {
     fetchToys();
   }, []);
 
-  const handleUpdate = (toyId) => {
-    navigate(`/update-toy/${toyId}`); 
-  };
-
+  
   const handleDelete = async (toyId) => {
     const result = await Swal.fire({
       title: 'Are you sure?',
@@ -72,9 +68,9 @@ const MyToy =  () => {
               <td className="py-2 px-4 border-b">{toy.quantity}</td>
               <td className="py-2 px-4 border-b">{toy.description}</td>
               <td className="py-2 px-4 border-b flex gap-12">
-                <Link to={'/update-toy/${toyId}'}>
+                <Link to={'/update-toy/:toyId'}>
                 <button
-                  onClick={() => handleUpdate(toy._id)}
+                 
                   className="bg-cyan-950 text-white px-4 py-2 rounded hover:bg-blue-600"
                 >
                   Update

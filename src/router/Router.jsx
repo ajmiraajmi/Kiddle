@@ -6,6 +6,7 @@ import Home from "@/components/home/Home";
 import Login from "@/components/login/Login";
 import MyToy from "@/components/mytoy/MyToy";
 import Register from "@/components/register/Register";
+import UpdateToy from "@/components/updatetoy/UpdateToy";
 import PrivateRoute from "@/privateroute/PrivateRoute";
 import RootLayout from "@/root/RootLayout";
 import { createBrowserRouter } from "react-router-dom";
@@ -27,6 +28,11 @@ const Router = createBrowserRouter([
                 path: "/toy/:id",
                 element: <PrivateRoute element={<ToyDetails />}/>,
                 loader:({params})=>fetch(`http://localhost:5000/toy/${params?.id}`)
+            },   
+            {
+                path: "/update-toy/:toyId",
+                element: <UpdateToy /> ,
+                // loader:({params})=>fetch(`http://localhost:5000/toy/${params?.id}`)
             },   
 
             {
