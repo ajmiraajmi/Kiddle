@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const MyToy =  () => {
@@ -23,7 +22,7 @@ const MyToy =  () => {
   }, []);
 
   const handleUpdate = (toyId) => {
-    navigate(`/update-toy/${toyId}`); // Adjust the route to match your update page
+    navigate(`/update-toy/${toyId}`); 
   };
 
   const handleDelete = async (toyId) => {
@@ -73,12 +72,14 @@ const MyToy =  () => {
               <td className="py-2 px-4 border-b">{toy.quantity}</td>
               <td className="py-2 px-4 border-b">{toy.description}</td>
               <td className="py-2 px-4 border-b flex gap-12">
+                <Link to={'/update-toy/${toyId}'}>
                 <button
                   onClick={() => handleUpdate(toy._id)}
                   className="bg-cyan-950 text-white px-4 py-2 rounded hover:bg-blue-600"
                 >
                   Update
                 </button>
+                </Link>
                 <button
                   onClick={() => handleDelete(toy._id)}
                   className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"

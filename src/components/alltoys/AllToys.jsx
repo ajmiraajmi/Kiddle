@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const AllToys = () => {
   const [toys, setToys] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-
   const isAuthenticated = false; 
 
- 
   useEffect(() => {
-    fetch("http://localhost:5000/toy?limit=20") 
+    fetch("http://localhost:5000/toy?limit=20")
       .then((res) => res.json())
       .then((data) => setToys(data))
       .catch((err) => console.error("Error fetching toys:", err));
   }, []);
 
-
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      fetch(`http://localhost:5000/toy?name=${searchQuery}`)
+      fetch(`http://localhost:5000/search?toyName=${searchQuery}`)
         .then((res) => res.json())
         .then((data) => setToys(data))
         .catch((err) => console.error("Error searching toys:", err));
@@ -30,7 +27,7 @@ const AllToys = () => {
 
   const handleViewDetails = (toyId) => {
     if (!isAuthenticated) {
-      navigate("/login", { state: { from: `/toy/:id` } });
+      navigate("/login", { state: { from: `/toy/${toyId}` } });
     } else {
       navigate(`/toy/${toyId}`);
     }
@@ -76,14 +73,11 @@ const AllToys = () => {
               <td className="py-3 px-4">${toy.price}</td>
               <td className="py-3 px-4">{toy.quantity}</td>
               <td className="py-3 px-4">
-                <td className="py-3 px-4">
-                  <button
-                    onClick={() => handleViewDetails(toy._id)}
-                    className="bg-emerald-900 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                  >
+                <Link to={`/toy/${toy._id}`}>
+                  <button className="bg-emerald-900 text-white px-4 py-2 rounded-md hover:bg-blue-600">
                     View Details
                   </button>
-                </td>
+                </Link>
               </td>
             </tr>
           ))}
