@@ -231,7 +231,6 @@ const AddToy = () => {
             className="px-32 py-3 bg-black text-white rounded-md hover:bg-blue-700"
             disabled={loading}  // Disable button when loading
           >
-            Add Toy
             {loading ? 'Adding...' : 'Add Toy'}
           </button>
          

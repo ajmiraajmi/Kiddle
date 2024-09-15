@@ -1,8 +1,8 @@
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules'; 
-import 'swiper/css'; 
-import 'swiper/css/navigation'; 
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 import B1 from "../../../assets/B1.jpg";
 import B2 from "../../../assets/B2.jpg";
 import B3 from "../../../assets/B3.jpg";
@@ -14,18 +14,20 @@ const Bannar = () => {
         <SwiperSlide>
           <div className="relative">
             <img
-              className="w-full h-[40rem] md:h-[40rem] object-cover"
+              className="w-full h-[40rem] object-cover"
               src={B1}
-              alt="Jewelry Collection"
+              alt="Elegant Toys"
+              style={{ height: "40rem", width: "100%" }} // Set a fixed height and width
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center p-4">
-                <h3 className="text-4xl md:text-5xl font-bold text-black">
+                <h3 className="text-[4rem] md:text-[6rem] font-bold text-black">
                   Elegant Toys
                 </h3>
-                <p className="text-xl md:text-xl text-black">
+                <p className="text-[2rem] md:text-[3rem] text-black">
                   Discover our exquisite collection of fine Toys.
                 </p>
+
                 <button className="bg-amber-950 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
                   Shop Now
                 </button>
@@ -37,17 +39,18 @@ const Bannar = () => {
         <SwiperSlide>
           <div className="relative">
             <img
-              className="w-full h-[30rem] md:h-[36rem] object-cover"
+              className="w-full h-[40rem] object-cover"
               src={B2}
-              alt="Luxury Skincare"
+              alt="Study & Learn"
+              style={{ height: "40rem", width: "100%" }} // Set the same height and width
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center p-4">
-                <h3 className="text-4xl md:text-5xl font-bold text-cyan-400">
-                 Study & Learn
+                <h3 className="text-[4rem] md:text-[6rem] font-bold text-emerald-400">
+                  Study & Learn
                 </h3>
-                <p className="text-md md:text-lg text-cyan-400">
-                   Best Learning Toys for your Kids.
+                <p className="text-[2rem] md:text-[3rem] text-emerald-400">
+                  Best Learning Toys for your Kids.
                 </p>
                 <button className="bg-lime-950 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
                   Shop Now
@@ -60,19 +63,20 @@ const Bannar = () => {
         <SwiperSlide>
           <div className="relative">
             <img
-              className="w-full h-[30rem] md:h-[36rem] object-cover"
+              className="w-full h-[40rem] object-cover"
               src={B3}
-              alt="Luxury Skincare"
+              alt="Study & Learn"
+              style={{ height: "40rem", width: "100%" }} // Same height and width
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center p-4">
-                <h3 className="text-4xl md:text-5xl font-bold text-black">
-                Study & Learn
+                <h3 className="text-[4rem] md:text-[6rem] font-bold text-emerald-400">
+                  Study & Learn
                 </h3>
-                <p className="text-md md:text-lg text-black">
-                Best Learning Toys for your Kids.
+                <p className="text-[2rem] md:text-[3rem] text-emerald-400">
+                  Best Learning Toys for your Kids.
                 </p>
-                <button className="bg-black hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
+                <button className="bg-white hover:bg-blue-700 text-black font-bold py-2 px-4 rounded mt-4">
                   Shop Now
                 </button>
               </div>

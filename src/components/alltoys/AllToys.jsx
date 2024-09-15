@@ -6,18 +6,18 @@ const AllToys = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  // Mock user authentication status
-  const isAuthenticated = false; // Replace with your real authentication check
 
-  // Fetch toys from the API
+  const isAuthenticated = false; 
+
+ 
   useEffect(() => {
-    fetch("http://localhost:5000/toy?limit=20") // Fetching 20 results by default
+    fetch("http://localhost:5000/toy?limit=20") 
       .then((res) => res.json())
       .then((data) => setToys(data))
       .catch((err) => console.error("Error fetching toys:", err));
   }, []);
 
-  // Handle search
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -30,7 +30,6 @@ const AllToys = () => {
 
   const handleViewDetails = (toyId) => {
     if (!isAuthenticated) {
-      // Redirect to login page with the intended redirect path
       navigate("/login", { state: { from: `/toy/:id` } });
     } else {
       navigate(`/toy/${toyId}`);
@@ -39,9 +38,8 @@ const AllToys = () => {
 
   return (
     <div className="container mx-auto p-6 mb-2">
-      {/* Centered Search Bar */}
-      <form onSubmit={handleSearch} className="flex justify-center mb-4">
-        <div className="flex items-center">
+      <form onSubmit={handleSearch} className="flex justify-end mb-4">
+        <div className="flex items-end">
           <input
             type="text"
             placeholder="Search by toy name"

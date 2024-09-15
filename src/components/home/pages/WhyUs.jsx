@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const WhyChooseUs = () => {
-  const [openIndex, setOpenIndex] = useState(null);
-
-  const toggleOpen = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  
 
   const sections = [
     {
@@ -75,7 +71,7 @@ const WhyChooseUs = () => {
                 {section.svg}
               </div>
               <h3 className="text-xl font-semibold mb-4 text-center">{section.title}</h3>
-              <p className={`text-gray-600 ${openIndex === index ? 'block' : 'hidden'}`}>
+              <p className ="">
                 {section.content}
               </p>
             </div>
