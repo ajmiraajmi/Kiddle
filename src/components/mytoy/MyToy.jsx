@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 
 const MyToy =  () => {
   const [toys, setToys] = useState([]);
+  const [sortBy, setSortBy] = useState('asc');
 
   useEffect(() => {
     // Fetch toys data from your backend
@@ -19,6 +20,17 @@ const MyToy =  () => {
 
     fetchToys();
   }, []);
+
+  // Function to handle sorting locally
+  const sortedToys = [...toys].sort((a, b) => {
+    if (sortBy === 'asc') {
+      return a.price - b.price;
+    } else {
+      return b.price - a.price;
+    }
+  });
+
+
 
   
   const handleDelete = async (toyId) => {
@@ -49,6 +61,19 @@ const MyToy =  () => {
   return (
     <div className="container mx-auto p-6 max-w-7xl bg-gray-200 mt-8 mb-12 ">
       <h1 className="text-3xl font-bold mb-6 text-orange-800 text-center">MyToys</h1>
+      {/* Dropdown for sorting */}
+      <div className="mb-4 text-right">
+        <label htmlFor="sort" className="mr-2 text-xl font-bold">Sort by Price:</label>
+        <select
+          id="sort"
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          className="bg-white border border-gray-300 px-4 py-2 rounded"
+        >
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </div>
 
       <table className="min-w-full bg-white border border-gray-300 text-xl">
         <thead>
@@ -61,7 +86,7 @@ const MyToy =  () => {
           </tr>
         </thead>
         <tbody>
-          {toys.map(toy => (
+        {sortedToys.map(toy => (
             <tr key={toy?._id}>
               <td className="py-2 px-4 border-b">{toy?.name}</td>
               <td className="py-2 px-4 border-b">${toy?.price}</td>
@@ -69,12 +94,9 @@ const MyToy =  () => {
               <td className="py-2 px-4 border-b">{toy?.description}</td>
               <td className="py-2 px-4 border-b flex gap-12">
                 <Link to={`/update-toy/${toy?._id}`}>
-                <button
-                 
-                  className="bg-cyan-950 text-white px-4 py-2 rounded hover:bg-blue-600"
-                >
-                  Update
-                </button>
+                  <button className="bg-cyan-950 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Update
+                  </button>
                 </Link>
                 <button
                   onClick={() => handleDelete(toy._id)}
