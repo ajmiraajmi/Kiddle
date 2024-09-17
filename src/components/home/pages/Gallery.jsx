@@ -22,11 +22,11 @@ const Gallery = () => {
         <h2 className="text-5xl font-bold text-center mb-8 text-orange-800 pb-4">Our Gallery</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 md:px-16">
           {images.map((img, index) => (
-            <div key={index} className="group relative overflow-hidden rounded-lg shadow-lg">
+            <div key={index} className="relative overflow-hidden rounded-lg shadow-lg flex items-center justify-center">
               <LazyLoadImage
                 src={img}
                 alt={`Gallery item ${index + 1}`}
-                className="object-cover w-full h-64 transition-transform duration-100 transform group-hover:scale-110"
+                className="object-cover w-full h-64 transition-transform duration-300 transform group-hover:scale-110"
                 effect="blur" 
               />
             </div>

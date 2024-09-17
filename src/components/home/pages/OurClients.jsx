@@ -18,10 +18,10 @@ const OurClients = () => {
         <div className="py-10 mt-6 mb-12 ">
             <div className="container mx-auto px-6">
                 {/* Header */}
-                <h1 className="text-4xl font-bold text-center mb-8 text-emerald-800">Our Clients</h1>
+                <h1 className="text-5xl font-bold text-center mb-8 text-emerald-800 ">Our Clients</h1>
 
                 {/* Client Testimonials */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
                     {clients.map((client, index) => (
                         <div
                             key={index}

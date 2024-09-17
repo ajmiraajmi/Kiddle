@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const AddToy = () => {
-
   const [toyData, setToyData] = useState({
     pictureUrl: '',
     name: '',
     sellerName: '',
     sellerEmail: '',
-    subCategory :'',
+    subCategory: '',
     price: '',
     rating: '',
     quantity: '',
@@ -46,8 +44,8 @@ const AddToy = () => {
           pictureUrl: '',
           name: '',
           sellerName: '',
-          subCategory :'',
-          category: '',
+          sellerEmail: '',
+          subCategory: '',
           price: '',
           rating: '',
           quantity: '',
@@ -68,13 +66,13 @@ const AddToy = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-12 bg-gray-200 rounded-lg shadow-md mt-10 mb-20">
+    <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-12 bg-gray-200 rounded-lg shadow-md mt-10 mb-20">
       <ToastContainer />
-      <h1 className="text-4xl font-semibold mb-8 text-center text-orange-900">Add A Toy</h1>
+      <h1 className="text-3xl sm:text-4xl font-semibold mb-6 sm:mb-8 text-center text-orange-900">Add A Toy</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label className="block text-lg font-medium text-black mb-2">
+            <label className="block text-base sm:text-lg font-medium text-black mb-2">
               Picture URL of the Toy
             </label>
             <input
@@ -88,7 +86,7 @@ const AddToy = () => {
             />
           </div>
           <div>
-            <label className="block text-lg font-medium text-black mb-2">
+            <label className="block text-base sm:text-lg font-medium text-black mb-2">
               Name
             </label>
             <input
@@ -103,9 +101,9 @@ const AddToy = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label className="block text-lg font-medium text-black mb-2">
+            <label className="block text-base sm:text-lg font-medium text-black mb-2">
               Seller Name
             </label>
             <input
@@ -119,7 +117,7 @@ const AddToy = () => {
             />
           </div>
           <div>
-            <label className="block text-lg font-medium text-black mb-2">
+            <label className="block text-base sm:text-lg font-medium text-black mb-2">
               Seller Email
             </label>
             <input
@@ -135,9 +133,9 @@ const AddToy = () => {
         </div>
 
         {/* Sub-Category and Price */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="col-span-2 md:col-span-1">
-            <label className="block text-lg font-medium text-black mb-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-base sm:text-lg font-medium text-black mb-2">
               Sub-Category
             </label>
             <select
@@ -150,14 +148,13 @@ const AddToy = () => {
               <option value="" disabled>
                 Select Sub-Category
               </option>
-              <option value="math toy">MathToy</option>
-              <option value="language toy">LanguageToy</option>
-              <option value="science toy">ScienceToy</option>
-              
+              <option value="math toy">Math Toy</option>
+              <option value="language toy">Language Toy</option>
+              <option value="science toy">Science Toy</option>
             </select>
           </div>
-          <div className="col-span-2 md:col-span-1">
-            <label className="block text-lg font-medium text-black mb-2">
+          <div>
+            <label className="block text-base sm:text-lg font-medium text-black mb-2">
               Price
             </label>
             <input
@@ -173,9 +170,9 @@ const AddToy = () => {
         </div>
 
         {/* Rating and Available Quantity */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label className="block text-lg font-medium text-black mb-2">
+            <label className="block text-base sm:text-lg font-medium text-black mb-2">
               Rating
             </label>
             <input
@@ -191,7 +188,7 @@ const AddToy = () => {
             />
           </div>
           <div>
-            <label className="block text-lg font-medium text-black mb-2">
+            <label className="block text-base sm:text-lg font-medium text-black mb-2">
               Available Quantity
             </label>
             <input
@@ -207,33 +204,30 @@ const AddToy = () => {
         </div>
 
         {/* Detail Description */}
-        <div className="grid grid-cols-1">
-          <div>
-            <label className="block text-lg font-medium text-black mb-2">
-              Detail Description
-            </label>
-            <textarea
-              name="description"
-              value={toyData.description}
-              onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded-md"
-              placeholder="Enter detailed description"
-              rows="4"
-              required
-            />
-          </div>
+        <div>
+          <label className="block text-base sm:text-lg font-medium text-black mb-2">
+            Detail Description
+          </label>
+          <textarea
+            name="description"
+            value={toyData.description}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Enter detailed description"
+            rows="4"
+            required
+          />
         </div>
 
         {/* Submit Button */}
         <div className="text-center">
           <button
             type="submit"
-            className="px-32 py-3 bg-black text-white rounded-md hover:bg-blue-700"
+            className="px-4 sm:px-6 md:px-8 py-2 sm:py-3 bg-black text-white rounded-md hover:bg-blue-700"
             disabled={loading}  // Disable button when loading
           >
             {loading ? 'Adding...' : 'Add Toy'}
           </button>
-         
         </div>
       </form>
     </div>
