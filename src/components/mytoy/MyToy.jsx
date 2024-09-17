@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import {  Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
@@ -62,13 +62,13 @@ const MyToy =  () => {
         </thead>
         <tbody>
           {toys.map(toy => (
-            <tr key={toy._id}>
-              <td className="py-2 px-4 border-b">{toy.name}</td>
-              <td className="py-2 px-4 border-b">${toy.price}</td>
-              <td className="py-2 px-4 border-b">{toy.quantity}</td>
-              <td className="py-2 px-4 border-b">{toy.description}</td>
+            <tr key={toy?._id}>
+              <td className="py-2 px-4 border-b">{toy?.name}</td>
+              <td className="py-2 px-4 border-b">${toy?.price}</td>
+              <td className="py-2 px-4 border-b">{toy?.quantity}</td>
+              <td className="py-2 px-4 border-b">{toy?.description}</td>
               <td className="py-2 px-4 border-b flex gap-12">
-                <Link to={'/update-toy/:toyId'}>
+                <Link to={`/update-toy/${toy?._id}`}>
                 <button
                  
                   className="bg-cyan-950 text-white px-4 py-2 rounded hover:bg-blue-600"

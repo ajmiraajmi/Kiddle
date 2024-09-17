@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 const AllToys = () => {
@@ -18,7 +18,7 @@ const AllToys = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      fetch(`http://localhost:5000/search?toyName=${searchQuery}`)
+      fetch(`http://localhost:5000/search?name=${searchQuery}`)
         .then((res) => res.json())
         .then((data) => setToys(data))
         .catch((err) => console.error("Error searching toys:", err));
@@ -37,12 +37,12 @@ const AllToys = () => {
     <div className="container mx-auto p-6 mb-2">
       <form onSubmit={handleSearch} className="flex justify-end mb-4">
         <div className="flex items-end">
-          <input
+        <input
             type="text"
             placeholder="Search by toy name"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="px-20 py-2 border border-indigo-500 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="px-4 py-2 border border-indigo-500 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <button
             type="submit"
