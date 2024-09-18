@@ -88,7 +88,7 @@ const AllToys = () => {
             ) : (
               <tr>
                 <td colSpan="6" className="text-center py-4">
-                  No toys available
+                  No toy available
                 </td>
               </tr>
             )}
