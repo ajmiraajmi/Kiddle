@@ -1,19 +1,17 @@
 import { AuthContext } from "@/context/AuthContext";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const RegisterPage = () => {
   const { createUser } = useContext(AuthContext);
 
-  // State for handling form data
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  // Handle change in input fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -24,34 +22,44 @@ const RegisterPage = () => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    const { email, password } = formData;
-
+    const { name, email, password } = formData;
+  
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
-
-        //new user has been created
-        const user = {email};
+        console.log("Create User Result:", result); // Log the result
+        const { user } = result;
+        const newUser = {
+          email: user.email,
+          name: formData.name,
+        };
+  
         fetch('http://localhost:5000/user', {
           method: 'POST',
           headers: {
-            'content-type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(user)
+          body: JSON.stringify(newUser),
         })
-        .then(res => res.json())
-        .then(data => {
-          if(data.insertedId){
-            console.log('user added to the database');
-
+        .then((res) => {
+          console.log("Fetch Response Status:", res.status); // Log the response status
+          return res.json();
+        })
+        .then((data) => {
+          console.log("Fetch Response Data:", data); // Log the response data
+          if (data.insertedId) {
+            console.log('User added to the database');
+            toast.success("Registration successful!");
+          } else {
+            toast.error("Failed to save user data. Please try again.");
           }
-         
-
         })
-        toast.success("Registration successful!");
+        .catch((error) => {
+          console.error("Fetch Error:", error); // Log the fetch error
+          toast.error("Failed to save user data. Please try again.");
+        });
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Create User Error:", error); // Log the createUser error
         toast.error("Registration failed. Please try again.");
       });
   };

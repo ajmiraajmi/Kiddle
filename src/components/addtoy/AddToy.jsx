@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
+import { useState, useContext } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '@/context/AuthContext'; 
 
 const AddToy = () => {
+  const { user } = useContext(AuthContext); 
   const [toyData, setToyData] = useState({
     pictureUrl: '',
     name: '',
     sellerName: '',
-    sellerEmail: '',
+    sellerEmail: '', 
+    userEmail: user?.email || '', 
     subCategory: '',
     price: '',
     rating: '',
     quantity: '',
     description: '',
   });
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,15 +27,17 @@ const AddToy = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Prevent multiple submissions by disabling submit button
     setLoading(true);
+
+  
+    const toyDataWithEmails = { ...toyData, userEmail: user?.email };
 
     fetch('http://localhost:5000/toy', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(toyData),
+      body: JSON.stringify(toyDataWithEmails),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -44,15 +49,14 @@ const AddToy = () => {
           pictureUrl: '',
           name: '',
           sellerName: '',
-          sellerEmail: '',
+          sellerEmail: '', 
+          userEmail: user?.email || '', 
           subCategory: '',
           price: '',
           rating: '',
           quantity: '',
           description: '',
         });
-
-        // Reset the form using event
         e.target.reset();
       })
       .catch((error) => {
@@ -60,7 +64,6 @@ const AddToy = () => {
         toast.error('Failed to add toy!');
       })
       .finally(() => {
-        // Re-enable the submit button after the request finishes
         setLoading(false);
       });
   };
@@ -132,7 +135,23 @@ const AddToy = () => {
           </div>
         </div>
 
-        {/* Sub-Category and Price */}
+        <div className="grid grid-cols-1 sm:grid-cols-1 gap-6">
+          <div className=''>
+            <label className="block text-base sm:text-lg font-medium text-black mb-2">
+              User Email
+            </label>
+            <input
+              type="email"
+              name="userEmail"
+              value={toyData.userEmail}
+              onChange={handleChange}
+              className="w-full p-2 border border-gray-300 bg-white rounded-md"
+              placeholder="Enter user email"
+              disabled // Disable editing userEmail since it comes from AuthContext
+            />
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label className="block text-base sm:text-lg font-medium text-black mb-2">
@@ -169,7 +188,6 @@ const AddToy = () => {
           </div>
         </div>
 
-        {/* Rating and Available Quantity */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label className="block text-base sm:text-lg font-medium text-black mb-2">
@@ -203,7 +221,6 @@ const AddToy = () => {
           </div>
         </div>
 
-        {/* Detail Description */}
         <div>
           <label className="block text-base sm:text-lg font-medium text-black mb-2">
             Detail Description
@@ -219,12 +236,11 @@ const AddToy = () => {
           />
         </div>
 
-        {/* Submit Button */}
         <div className="text-center">
           <button
             type="submit"
             className="px-4 sm:px-6 md:px-8 py-2 sm:py-3 bg-black text-white rounded-md hover:bg-blue-700"
-            disabled={loading}  // Disable button when loading
+            disabled={loading} // Disable button when loading
           >
             {loading ? 'Adding...' : 'Add Toy'}
           </button>

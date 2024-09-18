@@ -28,7 +28,7 @@ const UpdateToy = () => {
     e.preventDefault();
 
     fetch(`http://localhost:5000/toy/${_id}`, {
-      method: 'PATCH', // Make sure the method is PATCH
+      method: 'PATCH', 
       headers: {
         'Content-Type': 'application/json',
       },
@@ -47,6 +47,7 @@ const UpdateToy = () => {
             title: 'Success',
             text: 'Toy information updated successfully!',
           });
+          e.target.reset(); 
           navigate('/my-toys')
         }
       });

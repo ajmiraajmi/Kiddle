@@ -5,6 +5,7 @@ import Blogs from "@/components/blogs/Blogs";
 import Home from "@/components/home/Home";
 import Login from "@/components/login/Login";
 import MyToy from "@/components/mytoy/MyToy";
+import NotFoundPage from "@/components/notfoundpage/NotFoundPage";
 import Register from "@/components/register/Register";
 import UpdateToy from "@/components/updatetoy/UpdateToy";
 import PrivateRoute from "@/privateroute/PrivateRoute";
@@ -58,8 +59,12 @@ const Router = createBrowserRouter([
                 path: "/register",
                 element: <Register />,
             },
-    
+            
         ],
+    },
+    {
+        path: "*",
+        element: <NotFoundPage />,
     },
 ]);
 export default Router

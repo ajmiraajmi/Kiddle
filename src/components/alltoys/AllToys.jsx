@@ -1,19 +1,30 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 const AllToys = () => {
+  const { user } = useAuth(); 
   const [toys, setToys] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  const isAuthenticated = false;
+  useEffect(() => {
+    if (!user) {
+      navigate("/login"); 
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/toy?limit=20")
-      .then((res) => res.json())
-      .then((data) => setToys(data))
-      .catch((err) => console.error("Error fetching toys:", err));
-  }, []);
+    if (user) {
+      fetch(`http://localhost:5000/toys/${user.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Fetched toys:", data); 
+          setToys(data);
+        })
+        .catch((err) => console.error("Error fetching toys:", err));
+    }
+  }, [user]); 
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -25,13 +36,15 @@ const AllToys = () => {
     }
   };
 
-  const handleViewDetails = (toyId) => {
-    if (!isAuthenticated) {
-      navigate("/login", { state: { from: `/toy/${toyId}` } });
-    } else {
-      navigate(`/toy/${toyId}`);
-    }
-  };
+  if (!user) {
+    return (
+      <div className="container mx-auto max-w-7xl p-12 lg:p-6 mb-2">
+        <p className="text-center text-lg font-semibold">
+          You need to be logged in to view this page. <Link to="/login" className="text-blue-500 underline">Login here</Link>.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto max-w-7xl p-12 lg:p-6 mb-2">
@@ -70,22 +83,28 @@ const AllToys = () => {
             </tr>
           </thead>
           <tbody>
-            {toys.map((toy) => (
-              <tr key={toy._id} className="border-b hover:bg-gray-50">
-                <td className="py-3 px-4">{toy.sellerName || "Unknown"}</td>
-                <td className="py-3 px-4">{toy.name}</td>
-                <td className="py-3 px-4">{toy.subCategory}</td>
-                <td className="py-3 px-4">${toy.price}</td>
-                <td className="py-3 px-4">{toy.quantity}</td>
-                <td className="py-3 px-4">
-                  <Link to={`/toy/${toy._id}`}>
-                    <button className="bg-emerald-900 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-                      View Details
-                    </button>
-                  </Link>
-                </td>
+            {toys.length > 0 ? (
+              toys.map((toy) => (
+                <tr key={toy._id} className="border-b hover:bg-gray-50">
+                  <td className="py-3 px-4">{toy.sellerName || "Unknown"}</td>
+                  <td className="py-3 px-4">{toy.name}</td>
+                  <td className="py-3 px-4">{toy.subCategory}</td>
+                  <td className="py-3 px-4">${toy.price}</td>
+                  <td className="py-3 px-4">{toy.quantity}</td>
+                  <td className="py-3 px-4">
+                    <Link to={`/toy/${toy._id}`}>
+                      <button className="bg-emerald-900 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                        View Details
+                      </button>
+                    </Link>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="text-center py-4">No toys available</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

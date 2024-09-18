@@ -1,24 +1,38 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { useAuth } from '@/context/AuthContext'; // Make sure the path is correct
 
 const MyToy = () => {
+  const { user } = useAuth(); // Get user from AuthContext
   const [toys, setToys] = useState([]);
   const [sortBy, setSortBy] = useState('asc');
+  const [userEmail, setUserEmail] = useState('');
+  const navigate = useNavigate(); // For redirection
+
+  useEffect(() => {
+    if (user) {
+      setUserEmail(user.email); // Set userEmail from context
+    } else {
+      navigate('/login'); // Redirect to login if not authenticated
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     const fetchToys = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/toy');
-        const data = await response.json();
-        setToys(data);
-      } catch (error) {
-        console.error('Error fetching toys:', error);
+      if (userEmail) {
+        try {
+          const response = await fetch(`http://localhost:5000/toys/${userEmail}`);
+          const data = await response.json();
+          setToys(data);
+        } catch (error) {
+          console.error('Error fetching toys:', error);
+        }
       }
     };
 
     fetchToys();
-  }, []);
+  }, [userEmail]);
 
   const sortedToys = [...toys].sort((a, b) => {
     if (sortBy === 'asc') {
@@ -53,9 +67,19 @@ const MyToy = () => {
     }
   };
 
+  if (!user) {
+    return (
+      <div className="container mx-auto p-4 max-w-7xl bg-gray-200 mt-8 mb-12">
+        <p className="text-center text-lg font-semibold">
+          You need to be logged in to view this page. <Link to="/login" className="text-blue-500 underline">Login here</Link>.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto p-4 max-w-7xl bg-gray-200 mt-8 mb-12">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-orange-800 text-center">My Toys</h1>
+      <h1 className="text-4xl sm:text-3xl font-bold mb-6 text-orange-800 text-center">My Toys</h1>
       
       {/* Dropdown for sorting */}
       <div className="mb-4 text-right">
@@ -85,13 +109,13 @@ const MyToy = () => {
           </thead>
           <tbody>
             {sortedToys.map((toy) => (
-              <tr key={toy?._id}>
-                <td className="py-2 px-2 sm:px-4 border-b">{toy?.name}</td>
-                <td className="py-2 px-2 sm:px-4 border-b">${toy?.price}</td>
-                <td className="py-2 px-2 sm:px-4 border-b">{toy?.quantity}</td>
-                <td className="py-2 px-2 sm:px-4 border-b">{toy?.description}</td>
+              <tr key={toy._id}>
+                <td className="py-2 px-2 sm:px-4 border-b">{toy.name}</td>
+                <td className="py-2 px-2 sm:px-4 border-b">${toy.price}</td>
+                <td className="py-2 px-2 sm:px-4 border-b">{toy.quantity}</td>
+                <td className="py-2 px-2 sm:px-4 border-b">{toy.description}</td>
                 <td className="py-2 px-2 sm:px-4 border-b flex flex-col sm:flex-row gap-2 sm:gap-6">
-                  <Link to={`/update-toy/${toy?._id}`}>
+                  <Link to={`/update-toy/${toy._id}`}>
                     <button className="bg-cyan-950 text-white px-3 sm:px-4 py-1 sm:py-2 rounded hover:bg-blue-600">
                       Update
                     </button>
