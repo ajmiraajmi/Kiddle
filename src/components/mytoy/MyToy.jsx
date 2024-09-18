@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useAuth } from '@/context/AuthContext'; // Make sure the path is correct
+import { useAuth } from '@/context/AuthContext';
 
 const MyToy = () => {
-  const { user } = useAuth(); // Get user from AuthContext
+  const { user } = useAuth();
   const [toys, setToys] = useState([]);
   const [sortBy, setSortBy] = useState('asc');
   const [userEmail, setUserEmail] = useState('');
-  const navigate = useNavigate(); // For redirection
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
-      setUserEmail(user.email); // Set userEmail from context
+      setUserEmail(user.email);
     } else {
-      navigate('/login'); // Redirect to login if not authenticated
+      navigate('/login'); 
     }
   }, [user, navigate]);
 

@@ -3,14 +3,14 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 
 const AllToys = () => {
-  const { user } = useAuth(); 
+  const { user } = useAuth();
   const [toys, setToys] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
-      navigate("/login"); 
+      navigate("/login");
     }
   }, [user, navigate]);
 
@@ -19,37 +19,22 @@ const AllToys = () => {
       fetch(`http://localhost:5000/toys/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log("Fetched toys:", data); 
+          console.log("Fetched toys:", data);
           setToys(data);
         })
         .catch((err) => console.error("Error fetching toys:", err));
     }
-  }, [user]); 
+  }, [user]);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      fetch(`http://localhost:5000/search?name=${searchQuery}`)
-        .then((res) => res.json())
-        .then((data) => setToys(data))
-        .catch((err) => console.error("Error searching toys:", err));
-    }
-  };
-
-  if (!user) {
-    return (
-      <div className="container mx-auto max-w-7xl p-12 lg:p-6 mb-2">
-        <p className="text-center text-lg font-semibold">
-          You need to be logged in to view this page. <Link to="/login" className="text-blue-500 underline">Login here</Link>.
-        </p>
-      </div>
-    );
-  }
+  // Filter toys based on toy name
+  const filteredToys = toys.filter((toy) =>
+    toy.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="container mx-auto max-w-7xl p-12 lg:p-6 mb-2">
       <form
-        onSubmit={handleSearch}
+        onSubmit={(e) => e.preventDefault()}
         className="flex flex-wrap justify-end items-center mb-4"
       >
         <div className="flex flex-wrap items-end w-full md:w-auto">
@@ -61,7 +46,7 @@ const AllToys = () => {
             className="w-full md:w-auto px-4 py-2 border border-indigo-500 rounded-l-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <button
-            type="submit"
+            type="button"
             className="bg-black text-white px-4 py-2.5 rounded-r-md hover:bg-indigo-600"
           >
             Search
@@ -83,8 +68,8 @@ const AllToys = () => {
             </tr>
           </thead>
           <tbody>
-            {toys.length > 0 ? (
-              toys.map((toy) => (
+            {filteredToys.length > 0 ? (
+              filteredToys.map((toy) => (
                 <tr key={toy._id} className="border-b hover:bg-gray-50">
                   <td className="py-3 px-4">{toy.sellerName || "Unknown"}</td>
                   <td className="py-3 px-4">{toy.name}</td>
@@ -102,7 +87,9 @@ const AllToys = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="6" className="text-center py-4">No toys available</td>
+                <td colSpan="6" className="text-center py-4">
+                  No toys available
+                </td>
               </tr>
             )}
           </tbody>
