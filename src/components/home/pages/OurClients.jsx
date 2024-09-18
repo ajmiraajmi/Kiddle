@@ -3,7 +3,7 @@ import { FaStar } from 'react-icons/fa';
 import google from "../../../assets/client/google.png";
 import amazon from "../../../assets/client/amazon.png";
 import daraz from "../../../assets/client/Daraz.png";
-import paypal from "../../../assets/client/PayPal.png";
+import paypal from "../../../assets/client/payPal.png";
 
 const OurClients = () => {
 
