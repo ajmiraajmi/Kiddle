@@ -13,7 +13,6 @@ const AllToys = () => {
 
   useEffect(() => {
     if (!user) {
-      // If user is not authenticated, navigate to login
       navigate("/login");
     }
   }, [user, navigate]);
@@ -21,7 +20,8 @@ const AllToys = () => {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/toys/${user.email}`)
+      fetch(`http://localhost:5000/toy`)
+      // fetch(`http://localhost:5000/toys/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("Fetched toys:", data);
@@ -31,7 +31,7 @@ const AllToys = () => {
     }
   }, [user]);
 
-  // Filter toys based on toy name
+ 
   const filteredToys = toys.filter((toy) =>
     toy.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
