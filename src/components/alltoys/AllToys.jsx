@@ -1,18 +1,23 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
+
 
 const AllToys = () => {
-  const { user } = useAuth();
+  const { user} = useAuth();
   const [toys, setToys] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
+  
+
   useEffect(() => {
     if (!user) {
+      // If user is not authenticated, navigate to login
       navigate("/login");
     }
   }, [user, navigate]);
+
 
   useEffect(() => {
     if (user) {

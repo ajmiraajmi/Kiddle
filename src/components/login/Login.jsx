@@ -1,12 +1,13 @@
-import AuthContext  from "../../context/AuthContext";
-import { useContext } from "react";
+// import AuthContext  from "../../context/AuthContext"
+// import { useContext } from "react";
+import { useAuth } from '../../context/AuthContext'; 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const { loginUser, googleSignIn} = useContext(AuthContext);
+  const { loginUser, googleSignIn } = useAuth(); 
 
  // Handle email and password login
   const handleLogin = (event) => {
