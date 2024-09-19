@@ -27,7 +27,7 @@ const UpdateToy = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:5000/toy/${_id}`, {
+    fetch(`https://kiddle-server.vercel.app/toy/${_id}`, {
       method: 'PATCH', 
       headers: {
         'Content-Type': 'application/json',

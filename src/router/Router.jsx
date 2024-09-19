@@ -28,12 +28,12 @@ const Router = createBrowserRouter([
             {
                 path: "/toy/:id",
                 element: <PrivateRoute element={<ToyDetails />}/>,
-                loader:({params})=>fetch(`http://localhost:5000/toy/${params?.id}`)
+                loader:({params})=>fetch(`https://kiddle-server.vercel.app/toy/${params?.id}`)
             },   
             {
                 path: "/update-toy/:id",
                 element: <UpdateToy />,
-                loader: ({ params }) => fetch(`http://localhost:5000/toy/${params.id}`)
+                loader: ({ params }) => fetch(`https://kiddle-server.vercel.app/toy/${params.id}`)
               },
               
 

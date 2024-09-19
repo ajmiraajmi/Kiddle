@@ -22,7 +22,7 @@ const MyToy = () => {
     const fetchToys = async () => {
       if (userEmail) {
         try {
-          const response = await fetch(`http://localhost:5000/toys/${userEmail}`);
+          const response = await fetch(`https://kiddle-server.vercel.app/toys/${userEmail}`);
           const data = await response.json();
           setToys(data);
         } catch (error) {
@@ -55,7 +55,7 @@ const MyToy = () => {
 
     if (result.isConfirmed) {
       try {
-        await fetch(`http://localhost:5000/toy/${toyId}`, {
+        await fetch(`https://kiddle-server.vercel.app/toy/${toyId}`, {
           method: 'DELETE',
         });
         setToys(toys.filter((toy) => toy._id !== toyId));

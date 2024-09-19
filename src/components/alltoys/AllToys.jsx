@@ -20,8 +20,8 @@ const AllToys = () => {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/toy`)
-      // fetch(`http://localhost:5000/toys/${user.email}`)
+      fetch(`https://kiddle-server.vercel.app/toy`)
+      // fetch(`https://kiddle-server.vercel.app/toys/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("Fetched toys:", data);
